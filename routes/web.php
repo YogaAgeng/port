@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $skills = Skills::all();
     $skillsC = Skills::where('type', 'C')->get();
     $skillsD = Skills::where('type', 'D')->get();
-    return view('welcome',  compact('skillsC', 'skillsD'));
+    return view('welcome',  compact('skillsC', 'skillsD', 'skills'));
 });
 
 Route::get('/skills', 'App\Http\Controllers\SkillsController@index');
@@ -30,8 +31,7 @@ Route::get('/form', function () {
 
 Route::post('/submit-form', [CustomerController::class, 'store']);
 Route::post('/add-skill', [SkillsController::class, 'store']);
-// Route::post('/edit-skill', [SkillsController::class, 'edit']);
 Route::delete('/skills-delete/{id}', [SkillsController::class, 'destroy']);
 Route::get('/skills-edit', [SkillsController::class, 'edit']);
-Route::put('/skills-update', [SkillsController::class, 'update']);
+Route::put('/skills-update/{id}', [SkillsController::class, 'update']);
 

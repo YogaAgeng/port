@@ -30,16 +30,6 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/topbar.virtual.css">
 
-    {{-- <script>
-        function openModal() {
-            $('#myModal').modal('show');
-        }
-
-        function openModalEdit() {
-            $('#myModalEdit').modal('show');
-        }
-    </script> --}}
-
 </head>
 
 <body class="theme-red">
@@ -212,7 +202,7 @@
                                 </form>
                             </span>
                             <div class="col-auto"></div>
-                            <button type="submit" class="btn btn-primary" onclick="openModalEdit()">
+                            <button type="submit" class="btn btn-primary" onclick="openModalEdit({{$skillC->id}}, {{$skills}})">
                                 edit
                             </button>
                             <div class="progress">
@@ -225,44 +215,7 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <form method="POST" action="/edit-skill">
-                    @csrf
-                    <div class="modal fade" id="myModelEdit" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Edit Skill</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="name">Name:</label>
-                                            <input type="text" class="form-control" name="name"
-                                                id="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="percentage">Percentage:</label>
-                                            <input type="text" class="form-control" name="percentage"
-                                                id="percentage">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="type">Type:</label>
-                                            <input type="text" class="form-control" name="type"
-                                                id="type">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary"
-                                                id="saveBtn">Add</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
                 <div class="col-md-6">
                     <div class="px-lg-3">
                         <h4 class="wow fadeInUp">Design Skills</h4>
@@ -281,6 +234,47 @@
                 </div>
             </div>
         </div>
+
+        <form method="POST" action="/skills-update/{{$skillC->id}}">
+                @method('PUT')
+                @csrf
+                <div class="modal fade" id="myModelEdit" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Edit Skill</h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" name="name" id="editSkillName"
+                                            id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="percentage">Percentage:</label>
+                                        <input type="text" class="form-control" name="percentage"
+                                            id="editSkillPercentage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="type">Type:</label>
+                                        <input type="text" class="form-control" name="type"
+                                            id="editSkillType">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"
+                                            id="saveBtn">save edit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
         <div class="container pt-5">
             <div class="row">
                 <div class="col-md-6 wow fadeInRight">
@@ -698,7 +692,13 @@
             $('#myModal').modal('show');
         }
 
-        function openModalEdit() {
+        function openModalEdit(id, skills) {
+            var skill = skills.find(function (s) {
+                return s.id === id;
+            });
+            $('#editSkillName').val(skill.name);
+            $('#editSkillPercentage').val(skill.percentage);
+            $('#editSkillType').val(skill.type);
             $('#myModelEdit').modal('show');
         }
     </script>
