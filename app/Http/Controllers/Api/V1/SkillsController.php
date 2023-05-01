@@ -40,9 +40,10 @@ class SkillsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(skills $skills)
+    public function show($id)
     {
-        return Skills::find($skills->id);
+        $skill = Skills::whereId($id)->first();
+        return $skill;
     }
 
     /**
@@ -61,13 +62,12 @@ class SkillsController extends Controller
     public function update(Request $request, $id)
     {
         $skill = skills::find($id)->first();
-        $skillsE = skills::all();
         $skill->name = $request->name;
         $skill->percentage = $request->percentage;
         $skill->type = $request->type;
         $skill->save();
 
-        return redirect('/')->with(['skill' => $skill, 'skillsE' => $skillsE]);
+        return redirect('/');
     }
 
 
