@@ -9,7 +9,7 @@
 
     <meta name="copyright" content="MACode ID, https://www.macodeid.com/">
 
-    <title>Virtual Folio - Portfolio HTML5 Template</title>
+    <title>Portfolio - ADIE AGENG PRAYOGO</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/themify-icons.css">
 
